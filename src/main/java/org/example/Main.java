@@ -15,5 +15,8 @@ public class Main implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {}
+    public void run(String... args) throws Exception {
+       List<Expense> expenses = ExpenseDataLoader.getExpenses();
+       expenses.forEach(System.out::println);
+    }
 }
