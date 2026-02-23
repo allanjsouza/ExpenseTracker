@@ -72,4 +72,8 @@ public class ExpenseServiceImpl implements ExpenseService{
     public List<String> getExpenseCategories() {
         return ExpenseDataLoader.getExpenses().stream().map(Expense::getCategory).distinct().toList();
     }
+
+    private Optional<Expense> getExpenseById(Long id) {
+        return ExpenseDataLoader.getExpenses().stream().filter(e -> e.getId() == id).findFirst();
+    }
 }

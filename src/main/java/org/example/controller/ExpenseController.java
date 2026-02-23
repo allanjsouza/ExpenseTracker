@@ -51,4 +51,10 @@ public class ExpenseController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping("/expense_categories")
+    public ResponseEntity<List<String>> listExpenseCategories() {
+        List<String> categories = expenseService.getExpenseCategories();
+        return ResponseEntity.ok(categories);
+    }
 }

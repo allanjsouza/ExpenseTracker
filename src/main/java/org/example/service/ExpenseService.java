@@ -12,4 +12,5 @@ public interface ExpenseService {
     Expense addExpense(Expense expense);
     Optional<Expense> updateExpense(Long id, Expense expense);
     Optional<Expense> deleteExpense(Long id);
+    List<String> getExpenseCategories();
 }
