@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Service
+@Profile("db")
 public class ExpenseServiceImpl2 implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;

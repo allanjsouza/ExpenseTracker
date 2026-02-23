@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.dto.ExpenseFilterParams;
 import org.example.model.Expense;
 import org.example.util.ExpenseDataLoader;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
 @Service
+@Profile("json-file")
 public class ExpenseServiceImpl implements ExpenseService{
     private static final AtomicLong idCounter = new AtomicLong();
 
