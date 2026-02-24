@@ -3,13 +3,19 @@ server:
 
 spring:
   profiles:
+    # active: json-file
     active: db
   datasource:
-    url: jdbc:h2:mem:expensesdb;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
-    platform: h2
+    # H2 memory database config
+    # url: jdbc:h2:mem:expensesdb;DB_CLOSE_DELAY=-1
+    # driver-class-name: org.h2.Driver
+    # username: sa
+    # password:
+    # platform: h2
+    url: jdbc:postgresql://localhost:5432/expense_tracker_dev
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
   h2:
     console:
       enabled: true
@@ -17,4 +23,5 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
+    # database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
