@@ -6,7 +6,6 @@ import org.example.repository.ExpenseRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -25,19 +24,19 @@ public class ExpenseServiceImpl2 implements ExpenseService {
     public List<Expense> getExpenses(ExpenseFilterParams filters) {
         Stream<Expense> result = expenseRepository.findAll().stream();
 
-        if(filters.getCategory() != null) {
+        if (filters.getCategory() != null) {
             result = result.filter(e -> e.getCategory().equals(filters.getCategory()));
         }
 
-        if(filters.getMonth() != null) {
+        if (filters.getMonth() != null) {
             result = result.filter(e -> e.getDate().startsWith(filters.getMonth()));
         }
 
-        if(filters.getDate() != null) {
+        if (filters.getDate() != null) {
             result = result.filter(e -> e.getDate().equals(filters.getDate()));
         }
 
-        if(filters.getExpenseType() != -1) {
+        if (filters.getExpenseType() != -1) {
             result = result.filter(e -> e.getExpenseType() == filters.getExpenseType());
         }
 
