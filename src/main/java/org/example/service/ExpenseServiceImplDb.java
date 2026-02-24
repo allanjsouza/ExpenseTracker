@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 @Service
 @Profile("db")
-public class ExpenseServiceImpl2 implements ExpenseService {
+public class ExpenseServiceImplDb implements ExpenseService {
 
     private final ExpenseRepository expenseRepository;
 
-    public ExpenseServiceImpl2(ExpenseRepository expenseRepository) {
+    public ExpenseServiceImplDb(ExpenseRepository expenseRepository) {
         this.expenseRepository = expenseRepository;
     }
 
