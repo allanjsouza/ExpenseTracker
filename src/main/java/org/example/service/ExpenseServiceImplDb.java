@@ -6,6 +6,8 @@ import org.example.repository.ExpenseRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import lombok.NonNull;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -44,17 +46,17 @@ public class ExpenseServiceImplDb implements ExpenseService {
     }
 
     @Override
-    public Optional<Expense> getExpense(Long id) {
+    public Optional<Expense> getExpense(@NonNull Long id) {
         return expenseRepository.findById(id);
     }
 
     @Override
-    public Expense addExpense(Expense expense) {
+    public Expense addExpense(@NonNull Expense expense) {
         return expenseRepository.save(expense);
     }
 
     @Override
-    public Optional<Expense> updateExpense(Long id, Expense expense) {
+    public Optional<Expense> updateExpense(@NonNull Long id, Expense expense) {
         if (expenseRepository.existsById(id)) {
             expense.setId(id);
             expenseRepository.save(expense);
@@ -64,7 +66,7 @@ public class ExpenseServiceImplDb implements ExpenseService {
     }
 
     @Override
-    public Optional<Expense> deleteExpense(Long id) {
+    public Optional<Expense> deleteExpense(@NonNull Long id) {
         Optional<Expense> existingExpense = expenseRepository.findById(id);
         if (existingExpense.isPresent()) {
             expenseRepository.deleteById(id);
