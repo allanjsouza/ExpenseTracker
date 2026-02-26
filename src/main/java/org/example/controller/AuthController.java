@@ -2,9 +2,11 @@ package org.example.controller;
 
 import org.example.dto.AccessTokenResponseDTO;
 import org.example.dto.SignUpParamsDTO;
+import org.example.model.AppUser;
 import org.example.dto.AuthParamsDTO;
 import org.example.security.JwtUtil;
 import org.example.service.SignUpService;
+import org.example.util.AppUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +35,9 @@ public class AuthController {
     AccessTokenResponseDTO result = new AccessTokenResponseDTO();
 
     try {
-      result.setAccessToken(signUpService.signUpUser(userParams.getUsername(), userParams.getPassword()));
+      AppUser user = AppUserMapper.appUserFrom(userParams);
+      String accessToken = signUpService.signUpUser(user);
+      result.setAccessToken(accessToken);
       result.setMessage("Signup successfully");
       return ResponseEntity.ok(result);
     } catch (Exception e) {

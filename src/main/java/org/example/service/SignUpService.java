@@ -19,16 +19,14 @@ public class SignUpService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public String signUpUser(String username, String password) {
-    if (userRepo.findByUsername(username).isPresent())
+  public String signUpUser(AppUser user) {
+    if (userRepo.findByUsername(user.getUsername()).isPresent())
       throw new RuntimeException("Username has already been taken");
 
-    String encodedPassword = passwordEncoder.encode(password);
-    AppUser newUser = new AppUser();
-    newUser.setUsername(username);
-    newUser.setPassword(encodedPassword);
-    userRepo.save(newUser);
+    String encodedPassword = passwordEncoder.encode(user.getPassword());
+    user.setPassword(encodedPassword);
+    userRepo.save(user);
 
-    return jwtUtil.generateToken(username);
+    return jwtUtil.generateToken(user.getUsername());
   }
 }
