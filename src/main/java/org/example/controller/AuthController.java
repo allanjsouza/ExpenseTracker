@@ -2,10 +2,11 @@ package org.example.controller;
 
 import org.example.dto.AccessTokenResponseDTO;
 import org.example.dto.SignUpParamsDTO;
+import org.example.error.SignUpException;
 import org.example.model.User;
 import org.example.dto.AuthParamsDTO;
 import org.example.security.JwtUtil;
-import org.example.service.SignUpService;
+import org.example.service.UserService;
 import org.example.util.AppUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class AuthController {
   private JwtUtil jwtUtil;
 
   @Autowired
-  private SignUpService signUpService;
+  private UserService userService;
 
   @PostMapping("/signup")
   public ResponseEntity<AccessTokenResponseDTO> signUp(@RequestBody SignUpParamsDTO userParams) {
@@ -36,11 +37,11 @@ public class AuthController {
 
     try {
       User user = AppUserMapper.appUserFrom(userParams);
-      String accessToken = signUpService.signUpUser(user);
+      String accessToken = userService.signUp(user);
       result.setAccessToken(accessToken);
       result.setMessage("Signup successfully");
       return ResponseEntity.ok(result);
-    } catch (Exception e) {
+    } catch (SignUpException e) {
       result.setMessage(e.getMessage());
       return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(result);
     }
