@@ -21,7 +21,7 @@ public class SignUpService {
 
   public String signUpUser(String username, String password) {
     if (userRepo.findByUsername(username).isPresent())
-      return "Error: Username already exists";
+      throw new RuntimeException("Username has already been taken");
 
     String encodedPassword = passwordEncoder.encode(password);
     AppUser newUser = new AppUser();
