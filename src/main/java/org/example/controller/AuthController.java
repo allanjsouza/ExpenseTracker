@@ -1,7 +1,8 @@
 package org.example.controller;
 
 import org.example.dto.AccessTokenResponseDTO;
-import org.example.dto.UserParamsDTO;
+import org.example.dto.SignUpParamsDTO;
+import org.example.dto.AuthParamsDTO;
 import org.example.security.JwtUtil;
 import org.example.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class AuthController {
   private SignUpService signUpService;
 
   @PostMapping("/signup")
-  public ResponseEntity<AccessTokenResponseDTO> signUp(@RequestBody UserParamsDTO userParams) {
+  public ResponseEntity<AccessTokenResponseDTO> signUp(@RequestBody SignUpParamsDTO userParams) {
     AccessTokenResponseDTO result = new AccessTokenResponseDTO();
 
     try {
@@ -42,7 +43,7 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<AccessTokenResponseDTO> login(@RequestBody UserParamsDTO userParams) {
+  public ResponseEntity<AccessTokenResponseDTO> login(@RequestBody AuthParamsDTO userParams) {
     AccessTokenResponseDTO result = new AccessTokenResponseDTO();
     String username = userParams.getUsername();
     Authentication auth = new UsernamePasswordAuthenticationToken(username, userParams.getPassword());
