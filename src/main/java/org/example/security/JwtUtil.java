@@ -14,6 +14,8 @@ import io.jsonwebtoken.Jwts;
 @Component
 public class JwtUtil {
 
+  private static final long MILLIS_TO_EXPIRE = 1000 * 60 * 60;
+
   private final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
   public String generateToken(String username) {
@@ -22,7 +24,7 @@ public class JwtUtil {
         .claims(claims)
         .subject(username)
         .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+        .expiration(new Date(System.currentTimeMillis() + MILLIS_TO_EXPIRE))
         .signWith(SECRET_KEY)
         .compact();
   }

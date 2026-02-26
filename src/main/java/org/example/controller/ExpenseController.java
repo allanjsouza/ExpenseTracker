@@ -20,7 +20,6 @@ public class ExpenseController {
 
     @GetMapping("/expenses")
     public ResponseEntity<List<Expense>> listExpenses(ExpenseFilterParamsDTO filters) {
-        System.out.println("Filters: " + filters);
         List<Expense> expenses = expenseService.getExpenses(filters);
         return ResponseEntity.ok(expenses);
     }
