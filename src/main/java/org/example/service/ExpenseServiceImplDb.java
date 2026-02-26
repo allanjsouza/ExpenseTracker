@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.dto.ExpenseFilterParams;
+import org.example.dto.ExpenseFilterParamsDTO;
 import org.example.model.Expense;
 import org.example.repository.ExpenseRepository;
 import org.springframework.context.annotation.Profile;
@@ -23,7 +23,7 @@ public class ExpenseServiceImplDb implements ExpenseService {
     }
 
     @Override
-    public List<Expense> getExpenses(ExpenseFilterParams filters) {
+    public List<Expense> getExpenses(ExpenseFilterParamsDTO filters) {
         Stream<Expense> result = expenseRepository.findAll().stream();
 
         if (filters.getCategory() != null) {

@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.dto.ExpenseFilterParams;
+import org.example.dto.ExpenseFilterParamsDTO;
 import org.example.model.Expense;
 import org.example.service.ExpenseService;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class ExpenseController {
     }
 
     @GetMapping("/expenses")
-    public ResponseEntity<List<Expense>> listExpenses(ExpenseFilterParams filters) {
+    public ResponseEntity<List<Expense>> listExpenses(ExpenseFilterParamsDTO filters) {
         System.out.println("Filters: " + filters);
         List<Expense> expenses = expenseService.getExpenses(filters);
         return ResponseEntity.ok(expenses);
