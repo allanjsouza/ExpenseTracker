@@ -5,11 +5,12 @@ import org.example.security.JwtUtil;
 import org.example.service.SignUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -25,14 +26,16 @@ public class AuthController {
   private SignUpService signUpService;
 
   @PostMapping("/login")
-  public String login(@RequestParam String username, @RequestParam String password) {
-    Authentication auth = new UsernamePasswordAuthenticationToken(username, password);
-    Authentication result = authManager.authenticate(auth);
+  public String login(@RequestBody UserParamsDTO userParams) {
+    String username = userParams.getUsername();
+    Authentication auth = new UsernamePasswordAuthenticationToken(username, userParams.getPassword());
 
-    if (result.isAuthenticated())
+    try {
+      authManager.authenticate(auth);
       return jwtUtil.generateToken(username);
-    else
-      throw new RuntimeException("Invalid credentials");
+    } catch (AuthenticationException e) {
+      throw new BadCredentialsException("Invalid credentials");
+    }
   }
 
   @PostMapping("/signup")
