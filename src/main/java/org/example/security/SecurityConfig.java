@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .sessionFixation().migrateSession())
         .authorizeHttpRequests(
             (requests) -> requests
+                .requestMatchers("/signup").permitAll()
                 .requestMatchers("/login").permitAll()
                 .anyRequest().authenticated())
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
