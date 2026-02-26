@@ -1,7 +1,7 @@
 package org.example.service;
 
-import org.example.model.AppUser;
-import org.example.repository.AppUserRepository;
+import org.example.model.User;
+import org.example.repository.UserRepository;
 import org.example.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class SignUpService {
 
   @Autowired
-  private AppUserRepository userRepo;
+  private UserRepository userRepo;
 
   @Autowired
   private PasswordEncoder passwordEncoder;
@@ -19,7 +19,7 @@ public class SignUpService {
   @Autowired
   private JwtUtil jwtUtil;
 
-  public String signUpUser(AppUser user) {
+  public String signUpUser(User user) {
     if (userRepo.findByUsername(user.getUsername()).isPresent())
       throw new RuntimeException("Username has already been taken");
 

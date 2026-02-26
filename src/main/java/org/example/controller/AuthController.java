@@ -2,7 +2,7 @@ package org.example.controller;
 
 import org.example.dto.AccessTokenResponseDTO;
 import org.example.dto.SignUpParamsDTO;
-import org.example.model.AppUser;
+import org.example.model.User;
 import org.example.dto.AuthParamsDTO;
 import org.example.security.JwtUtil;
 import org.example.service.SignUpService;
@@ -35,7 +35,7 @@ public class AuthController {
     AccessTokenResponseDTO result = new AccessTokenResponseDTO();
 
     try {
-      AppUser user = AppUserMapper.appUserFrom(userParams);
+      User user = AppUserMapper.appUserFrom(userParams);
       String accessToken = signUpService.signUpUser(user);
       result.setAccessToken(accessToken);
       result.setMessage("Signup successfully");

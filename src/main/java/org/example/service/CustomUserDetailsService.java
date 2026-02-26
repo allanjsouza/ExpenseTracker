@@ -1,9 +1,8 @@
 package org.example.service;
 
-import org.example.model.AppUser;
-import org.example.repository.AppUserRepository;
+import org.example.model.User;
+import org.example.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,14 +12,14 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
   @Autowired
-  private AppUserRepository userRepo;
+  private UserRepository userRepo;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    AppUser appUser = userRepo.findByUsername(username)
+    User appUser = userRepo.findByUsername(username)
         .orElseThrow(CustomUserDetailsService::userNotFoundError);
 
-    return User
+    return org.springframework.security.core.userdetails.User
         .builder()
         .username(appUser.getUsername())
         .password(appUser.getPassword())
