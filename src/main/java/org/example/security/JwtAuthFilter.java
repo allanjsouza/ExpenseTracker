@@ -34,20 +34,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     final String authorizationHeader = request.getHeader("Authorization");
 
-    String username = null;
-    String jwtToken = null;
+    String jwtToken = extracToken(authorizationHeader);
+    String username = extractUsername(jwtToken);
 
-    if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-      jwtToken = authorizationHeader.substring(7);
-      try {
-        username = jwtUtil.extractUsername(jwtToken);
-      } catch (JwtException e) {
-        System.out.println("JWT validation failed: " + e.getMessage());
-      }
-    }
-
-    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+    if (shouldAuthenticateUser(username)) {
       var userDetails = userDetailsService.loadUserByUsername(username);
+
       if (jwtUtil.validateToken(jwtToken, userDetails.getUsername())) {
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
             userDetails, null, userDetails.getAuthorities());
@@ -59,4 +51,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response);
   }
 
+  private String extracToken(String authHeader) {
+    if (authHeader != null && authHeader.startsWith("Bearer "))
+      return authHeader.substring(7);
+
+    return null;
+  }
+
+  private String extractUsername(String jwtToken) {
+    try {
+      if (jwtToken != null)
+        return jwtUtil.extractUsername(jwtToken);
+    } catch (JwtException e) {
+      System.err.println(e.getMessage());
+    }
+
+    return null;
+  }
+
+  private boolean shouldAuthenticateUser(String username) {
+    return username != null && SecurityContextHolder.getContext().getAuthentication() == null;
+  }
 }
