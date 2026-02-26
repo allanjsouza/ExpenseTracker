@@ -24,7 +24,9 @@ public class SignUpService {
       return "Error: Username already exists";
 
     String encodedPassword = passwordEncoder.encode(password);
-    AppUser newUser = new AppUser(username, encodedPassword);
+    AppUser newUser = new AppUser();
+    newUser.setUsername(username);
+    newUser.setPassword(encodedPassword);
     userRepo.save(newUser);
 
     return jwtUtil.generateToken(username);
