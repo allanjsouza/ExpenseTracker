@@ -55,7 +55,7 @@ public class AuthController {
     try {
       authManager.authenticate(auth);
       result.setAccessToken(jwtUtil.generateToken(username));
-      result.setMessage("Login successfully");
+      result.setMessage("Login successfull");
       return ResponseEntity.ok(result);
     } catch (AuthenticationException e) {
       result.setMessage("Invalid credentials");
