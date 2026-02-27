@@ -7,15 +7,16 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ExpenseService {
-    List<Expense> getExpenses(ExpenseFilterParamsDTO filters);
 
-    Optional<Expense> getExpense(Long id);
+    List<Expense> listExpenses(Long userId, ExpenseFilterParamsDTO filters);
 
-    Expense addExpense(Expense expense);
+    Optional<Expense> getExpense(Long userId, Long id);
 
-    Optional<Expense> updateExpense(Long id, Expense expense);
+    Expense addExpense(Long userId, Expense expense);
 
-    Optional<Expense> deleteExpense(Long id);
+    Optional<Expense> updateExpense(Long userId, Long id, Expense expense);
 
-    List<String> getExpenseCategories();
+    Optional<Expense> deleteExpense(Long userId, Long id);
+
+    List<String> getExpenseCategories(Long userId);
 }
