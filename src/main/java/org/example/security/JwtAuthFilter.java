@@ -3,6 +3,7 @@ package org.example.security;
 import java.io.IOException;
 
 import org.example.service.CustomUserDetailsService;
+import org.example.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

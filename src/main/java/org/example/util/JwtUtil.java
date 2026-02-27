@@ -1,4 +1,4 @@
-package org.example.security;
+package org.example.util;
 
 import java.util.Date;
 import java.util.HashMap;
