@@ -1,0 +1,33 @@
+package org.example.config;
+
+import org.example.model.Role;
+import org.example.model.User;
+import org.example.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataInitializer implements CommandLineRunner {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    public DataInitializer(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        if (userRepository.findByUsername("admin").isEmpty()) {
+            User adminUser = new User();
+            adminUser.setFullName("Admin User");
+            adminUser.setUsername("admin");
+            adminUser.setPassword(passwordEncoder.encode("admin1234"));
+            adminUser.setRole(Role.ADMIN);
+            userRepository.save(adminUser);
+        }
+    }
+
+}
