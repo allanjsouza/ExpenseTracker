@@ -2,7 +2,7 @@ package org.example.security;
 
 import java.io.IOException;
 
-import org.example.service.CustomUserDetailsService;
+import org.example.service.UserDetailsServiceImpl;
 import org.example.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -25,7 +25,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
   private JwtUtil jwtUtil;
 
   @Autowired
-  private CustomUserDetailsService userDetailsService;
+  private UserDetailsServiceImpl userDetailsService;
 
   @Override
   protected void doFilterInternal(

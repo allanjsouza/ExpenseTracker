@@ -2,7 +2,7 @@ package org.example.config;
 
 import org.example.model.Role;
 import org.example.security.JwtAuthFilter;
-import org.example.service.CustomUserDetailsService;
+import org.example.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   @Autowired
-  private CustomUserDetailsService userDetailsService;
+  private UserDetailsServiceImpl userDetailsService;
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
