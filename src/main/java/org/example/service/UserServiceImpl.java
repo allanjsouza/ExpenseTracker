@@ -1,5 +1,6 @@
 package org.example.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.example.model.User;
@@ -20,6 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(@NonNull User user) {
         return this.userRepo.save(user);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 
     @Override
