@@ -1,5 +1,6 @@
 package org.example.config;
 
+import org.example.model.Role;
 import org.example.security.JwtAuthFilter;
 import org.example.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,8 @@ public class SecurityConfig {
         .authorizeHttpRequests(
             authz -> authz
                 .requestMatchers("/signup", "/login").permitAll()
-                .anyRequest().authenticated())
+                .requestMatchers("/users/**").hasRole(Role.ADMIN.name())
+                .anyRequest().hasRole(Role.USER.name()))
         .userDetailsService(userDetailsService)
         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
     return http.build();
