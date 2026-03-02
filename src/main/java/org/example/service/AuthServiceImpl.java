@@ -3,6 +3,7 @@ package org.example.service;
 import org.example.dto.AuthDTO;
 import org.example.dto.AuthResponseDTO;
 import org.example.dto.UserDTO;
+import org.example.model.Role;
 import org.example.model.User;
 import org.example.util.DtoMapper;
 import org.example.util.JwtUtil;
@@ -40,6 +41,7 @@ public class AuthServiceImpl implements AuthService {
     String encodedPassword = passwordEncoder.encode(user.getPassword());
     User newUser = DtoMapper.userFrom(user);
     newUser.setPassword(encodedPassword);
+    newUser.setRole(Role.USER);
     userService.save(newUser);
     AuthDTO authDTO = DtoMapper.authDTOFrom(user);
 
